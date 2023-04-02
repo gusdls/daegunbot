@@ -5,6 +5,7 @@ from discord.ext import commands
 from dotenv import load_dotenv
 
 from scraper.menu import scrape_menus
+from scraper.news import scrape_news
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
@@ -37,5 +38,19 @@ async def menu(ctx: commands.Context):
             inline=True
         )
     await ctx.send(embed=embed)
+
+@bot.command()
+async def news(ctx: commands.Context):
+    news_list = scrape_news()
+    for news in news_list:
+        embed = discord.Embed(
+            title=news.title,
+            description=news.summary,
+            url=news.url,
+            color=discord.Color.greyple()
+        )
+        embed.set_thumbnail(url=news.thumbnail)
+        embed.set_footer(text=news.press)
+        await ctx.send(embed=embed)
 
 bot.run(TOKEN)
