@@ -28,7 +28,7 @@ async def menu(ctx: commands.Context):
     embed = discord.Embed(
         title="Daegun Menu Scraper",
         description="It scrapes menus of DGHS",
-        color=discord.Color.random()
+        color=discord.Color.dark_magenta()
     )
     menu_cards = scrape_menu()
     for menu_card in menu_cards:
