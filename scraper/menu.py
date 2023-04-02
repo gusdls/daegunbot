@@ -12,7 +12,7 @@ DAYS_OF_A_WEEK = 7
 @dataclass
 class MenuCard:
     time: str
-    menus: Iterable[str]
+    menu: Iterable[str]
     date: datetime.date
 
     def check_date(self, date: datetime.date):
@@ -25,12 +25,12 @@ def extract_menu(section) -> MenuCard:
     time = section.find('strong', class_='cm_date').get_text().strip()
     month, day = map(int, re.findall("[0-9]{1,2}", time))
     date = datetime.date(TODAY.year, month, day)
-    menus = section.find('div', class_='time_normal_list').find_all('span', class_='text')
-    menus = [menu.get_text() for menu in menus]
+    menu = section.find('div', class_='time_normal_list').find_all('span', class_='text')
+    menu = [dish.get_text() for dish in menu]
 
-    return MenuCard(time, menus, date)
+    return MenuCard(time, menu, date)
 
-def scrape_menus() -> Iterable[MenuCard]:
+def scrape_menu() -> Iterable[MenuCard]:
     menu_cards: Iterable[MenuCard] = []
     url = "https://search.naver.com/search.naver?where=nexearch&sm=tab_etc&mra=blBI&pkid=682&os=24929782&qvt=0&query=%EB%8C%80%EA%B1%B4%EA%B3%A0%EB%93%B1%ED%95%99%EA%B5%90%20%EA%B8%89%EC%8B%9D%EC%8B%9D%EB%8B%A8"
     res = requests.get(url)
@@ -49,5 +49,6 @@ def scrape_menus() -> Iterable[MenuCard]:
     return menu_cards
 
 if __name__ == "__main__":
-    for menu_card in scrape_menus():
+    menu_cards = scrape_menu()
+    for menu_card in menu_cards:
         print(menu_card)

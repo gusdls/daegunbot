@@ -4,7 +4,7 @@ import discord
 from discord.ext import commands
 from dotenv import load_dotenv
 
-from scraper.menu import scrape_menus
+from scraper.menu import scrape_menu
 from scraper.news import scrape_news
 
 load_dotenv()
@@ -30,11 +30,11 @@ async def menu(ctx: commands.Context):
         description="It scrapes menus of DGHS",
         color=discord.Color.random()
     )
-    menu_cards = scrape_menus()
+    menu_cards = scrape_menu()
     for menu_card in menu_cards:
         embed.add_field(
             name=menu_card.time,
-            value=os.linesep.join(menu_card.menus),
+            value=os.linesep.join(menu_card.menu),
             inline=True
         )
     await ctx.send(embed=embed)
