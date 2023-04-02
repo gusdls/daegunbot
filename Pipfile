@@ -1,0 +1,19 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+"discord.py" = "*"
+python-dotenv = "*"
+requests = "*"
+beautifulsoup4 = "*"
+lxml = "*"
+
+[dev-packages]
+py-mon = "*"
+colorama = "*"
+watchdog = "*"
+
+[requires]
+python_version = "3.11"
